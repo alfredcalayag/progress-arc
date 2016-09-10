@@ -17,12 +17,11 @@ progressArc = function(Arc, Color) {
       expected: '<',
       label: '<'
     },
-    templateUrl: 'views/templates/progress-arc.html',
     controller: 'ProgressArcCtrl',
     controllerAs: 'vm',
     link: function(scope, element, attrs) {
       var displayValue, g, svg;
-      svg = d3.select('svg').attr('width', 200).attr('height', 200);
+      svg = d3.select(element[0]).append('svg').attr('class', 'progress-arc').attr('width', 200).attr('height', 200);
       g = svg.append('g').attr('transform', 'translate(100, 100)').selectAll('path').data(Arc.arcData(scope.actual, scope.expected)).enter().append('path').attr('d', function(d) {
         if (d.hasTransition) {
           return Arc.initialState(d);
