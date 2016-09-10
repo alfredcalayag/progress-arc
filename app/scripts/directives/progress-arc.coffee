@@ -13,12 +13,13 @@ progressArc = (Arc, Color) ->
         actual: '<'
         expected: '<'
         label: '<'
-    templateUrl: 'views/templates/progress-arc.html'
     controller: 'ProgressArcCtrl'
     controllerAs: 'vm'
     link: (scope, element, attrs) ->
-        # svg = d3.select element[0]
-        svg = d3.select 'svg'
+        # svg = d3.select 'svg'
+        svg = d3.select element[0]
+            .append 'svg'
+            .attr 'class', 'progress-arc'
             .attr 'width', 200
             .attr 'height', 200
 

@@ -88,30 +88,20 @@ body {
   }
 }
 
-.progress-arc-container {
+.progress-arc {
   display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  vertical-align: middle;
-  overflow: hidden;
-
-  .progress-arc {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-      text {
-          font-size: 1.1em;
-          fill: black;
-          text-anchor: middle;
+  top: 0;
+  left: 0;
+  text {
+      font-size: 1.2em;
+      fill: black;
+      text-anchor: middle;
+      &.value {
+        font-size: 1.8em;
       }
-      text.value {
-          font-size: 1.8em;
-      }
-      text.percent {
-          x: 20;
+      &.percent {
+        x: 20;
       }
   }
 }
+
