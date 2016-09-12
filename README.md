@@ -15,6 +15,9 @@ The arcs are built with a color mood indicator that behaves as follows:
 ### What it outputs
 <img width="904" alt="markup" src="https://cloud.githubusercontent.com/assets/8264059/18432430/c686edfa-7896-11e6-8ff9-d2c8310c055e.png">
 
+## Live Demo
+Deployed on Heroku. [Click here for a live demo](https://enigmatic-bayou-18973.herokuapp.com/#/demo).  See the transitions as the page loads. Hit refresh on your browser to play it again.
+
 ## Try it out
 Follow the build & development section below and visit http://localhost:9000/#/ in your browser.
 Play around with editing the input values in app/views/templates/demo.html and observe the different behavior based on your inputs.
