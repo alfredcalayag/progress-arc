@@ -48,7 +48,7 @@ progressArc = (Arc, Color, Conversion) ->
             .attr 'transform', 'translate(100, 100)'
             .attr 'class', 'label'
             .attr 'y', (d) -> 20
-            .text (d) -> scope.label
+            .text (d) -> scope.label or 'Progress'
 
         svg.append 'text'
             .attr 'transform', 'translate(100, 100)'
