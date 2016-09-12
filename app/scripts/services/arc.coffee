@@ -17,7 +17,7 @@ Arc = (Color, Conversion) ->
             type: 'path'
             fill: Color.base
             innerRadius: 0
-            outerRadius: radius - 45
+            outerRadius: radius * 0.65
             cornerRadius: 2 * Math.PI
             startAngle: 0
             endAngle: 2 * Math.PI
@@ -26,8 +26,8 @@ Arc = (Color, Conversion) ->
             name: 'actual'
             type: 'path'
             fill: Color.primary
-            innerRadius: radius - 30
-            outerRadius: radius - 20
+            innerRadius: radius * 0.8
+            outerRadius: radius * 0.95
             cornerRadius: 2 * Math.PI
             startAngle: 0
             endAngle: Conversion.floatToRadians actual
@@ -39,8 +39,8 @@ Arc = (Color, Conversion) ->
             name: 'expected'
             type: 'path'
             fill: Color.secondary
-            innerRadius: radius - 40
-            outerRadius: radius - 35
+            innerRadius: radius * 0.7
+            outerRadius: radius * 0.75
             cornerRadius: 2 * Math.PI
             startAngle: 0
             endAngle: Conversion.floatToRadians expected
