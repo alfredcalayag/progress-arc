@@ -53,7 +53,7 @@ progressArc = (Arc, Color, Conversion) ->
         svg.append 'text'
             .attr 'transform', 'translate(100, 100)'
             .attr 'class', 'format'
-            .attr 'x', 25
+            .attr 'x', 33
             .text (d) -> '%'
 
         # Get set... DRAW!!
