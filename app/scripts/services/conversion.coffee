@@ -14,11 +14,15 @@ Conversion = () ->
         percent * 360 * Math.PI / 180
 
     floatToPercent = (float) ->
-        float * 100
+        Math.round (float * 100)
+
+    isValidFloat = (input) ->
+        input > 0 and input <= 1
 
     return {
         floatToRadians: floatToRadians
         floatToPercent: floatToPercent
+        isValidFloat: isValidFloat
     }
 
 angular.module 'progressArcApp'

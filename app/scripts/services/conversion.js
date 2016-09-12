@@ -11,16 +11,20 @@
 var Conversion;
 
 Conversion = function() {
-  var floatToPercent, floatToRadians;
+  var floatToPercent, floatToRadians, isValidFloat;
   floatToRadians = function(percent) {
     return percent * 360 * Math.PI / 180;
   };
   floatToPercent = function(float) {
-    return float * 100;
+    return Math.round(float * 100);
+  };
+  isValidFloat = function(input) {
+    return input > 0 && input <= 1;
   };
   return {
     floatToRadians: floatToRadians,
-    floatToPercent: floatToPercent
+    floatToPercent: floatToPercent,
+    isValidFloat: isValidFloat
   };
 };
 
