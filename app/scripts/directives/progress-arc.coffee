@@ -13,6 +13,7 @@ progressArc = (Arc, Color, Conversion) ->
         actual: '<'
         expected: '<'
         label: '<'
+        radius: '<'
     link: (scope, element, attrs) ->
         if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
             throw TypeError 'Input should be a number between 0 and 1.0'
@@ -20,8 +21,8 @@ progressArc = (Arc, Color, Conversion) ->
         svg = d3.select element[0]
             .append 'svg'
             .attr 'class', 'progress-arc'
-            .attr 'width', 200
-            .attr 'height', 200
+            .attr 'width', scope.radius * 2 || 200
+            .attr 'height', scope.radius * 2 || 200
 
         # append arc data
         g = svg
@@ -47,12 +48,12 @@ progressArc = (Arc, Color, Conversion) ->
             .attr 'transform', 'translate(100, 100)'
             .attr 'class', 'label'
             .attr 'y', (d) -> 20
-            .text (d) -> scope.label
+            .text (d) -> scope.label or 'Progress'
 
         svg.append 'text'
             .attr 'transform', 'translate(100, 100)'
             .attr 'class', 'format'
-            .attr 'x', 25
+            .attr 'x', 33
             .text (d) -> '%'
 
         # Get set... DRAW!!

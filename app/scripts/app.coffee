@@ -19,16 +19,12 @@ angular
   ]
   .config ($routeProvider) ->
     $routeProvider
-      .when '/',
-        templateUrl: 'views/main.html'
-      .when '/about',
-        templateUrl: 'views/about.html'
-        controller: 'AboutCtrl'
-        controllerAs: 'about'
       .when '/demo',
         templateUrl: 'views/demo.html'
+        controller: 'DemoCtrl'
+        controllerAs: 'vm'
       .otherwise
-        redirectTo: '/'
+        redirectTo: '/demo'
   .factory '$exceptionHandler', ($injector) ->
     (exception, cause) ->
       $rootScope = $injector.get '$rootScope'
@@ -39,4 +35,4 @@ angular
       console.log exception + '\nCause: ' + cause
 
       # For now, we can just use an alert to provide feedback to the user
-      alert 'Sorry, an error has occurred: ' + exception.message
+      # alert 'Sorry, an error has occurred: ' + exception.message

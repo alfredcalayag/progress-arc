@@ -1,7 +1,11 @@
 <div style="display:block">DEMO:</div>
 
-<progress-arc actual=0.70 expected=0.40 label="'Progress'"> </progress-arc>
-
-<progress-arc actual=0.50 expected=0.75 label="'Progress'"> </progress-arc>
-
-<progress-arc actual=0.22 expected=0.84 label="'Progress'"> </progress-arc>
+<div style="text-align:center">
+    <div ng-repeat="data in vm.data" style="display:inline-block">
+        <progress-arc actual="data.actual" expected="data.expected" radius="data.radius"></progress-arc>
+        <div style="display:block">
+            <span style="display:block">Actual: {{ data.actual }}</span>
+            <span style="display:block">Expected: {{ data.expected }}</span>
+        </div>
+    </div>
+</div>
