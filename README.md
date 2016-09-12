@@ -9,10 +9,10 @@ The arcs are built with a color mood indicator that behaves as follows:
 - Orange if the actual is behind 25% of the expected
 - Green otherwise.  Green is good.
 
-### Visual Demo
+### What it looks like
 <img align="middle width="673" alt="demo" src="https://cloud.githubusercontent.com/assets/8264059/18431964/6ab0df88-7894-11e6-8f57-8e984f8df603.png">
 
-### Output Markup
+### What it outputs
 <img width="904" alt="markup" src="https://cloud.githubusercontent.com/assets/8264059/18432430/c686edfa-7896-11e6-8ff9-d2c8310c055e.png">
 
 ## Try it out
