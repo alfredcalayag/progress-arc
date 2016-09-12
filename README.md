@@ -2,8 +2,6 @@
 This is a small project involving a progress arc indicator using Angular and D3.
 
 ## What is it?
-<img align="middle width="673" alt="demo" src="https://cloud.githubusercontent.com/assets/8264059/18431964/6ab0df88-7894-11e6-8f57-8e984f8df603.png">
-
 The `<progress-arc>` is an Angular directive to show the difference between an actual measurement compared to an expected measurement. It takes 2 inputs: the `actual` percentage of completion and the `expected` percentage of completion.  Based on these inputs, the widget will animate circular arcs representing the completion statuses (i.e. 50% -> half circle, 100% => full circle) with the actual display on reading out in the center.
 
 The arcs are built with a color mood indicator that behaves as follows:
@@ -11,7 +9,10 @@ The arcs are built with a color mood indicator that behaves as follows:
 - Orange if the actual is behind 25% of the expected
 - Green otherwise.  Green is good.
 
-### Deeper Dive: Output Markup
+### Visual Demo
+<img align="middle width="673" alt="demo" src="https://cloud.githubusercontent.com/assets/8264059/18431964/6ab0df88-7894-11e6-8f57-8e984f8df603.png">
+
+### Output Markup
 <img width="904" alt="markup" src="https://cloud.githubusercontent.com/assets/8264059/18432430/c686edfa-7896-11e6-8ff9-d2c8310c055e.png">
 
 ## Try it out
