@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": ";AACI,kBAAK;EACD,SAAS,EAAE,KAAK;EAChB,IAAI,EAAE,KAAK;EACX,WAAW,EAAE,MAAM;;;AAEnB,yBAAO;EACH,SAAS,EAAE,KAAK",
-"sources": ["../app/styles/progress-arc.scss"],
-"names": [],
-"file": "progress-arc.css"
-}

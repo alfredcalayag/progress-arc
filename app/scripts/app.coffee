@@ -29,4 +29,14 @@ angular
         templateUrl: 'views/demo.html'
       .otherwise
         redirectTo: '/'
+  .factory '$exceptionHandler', ($injector) ->
+    (exception, cause) ->
+      $rootScope = $injector.get '$rootScope'
+      $rootScope.errors = $rootScope.errors || []
+      $rootScope.errors.push exception
 
+      # Add error logging here
+      console.log exception + '\nCause: ' + cause
+
+      # For now, we can just use an alert to provide feedback to the user
+      alert 'Sorry, an error has occurred: ' + exception.message

@@ -215,6 +215,13 @@ module.exports = function (grunt) {
           src: '{,*/}*.coffee',
           dest: '.tmp/scripts',
           ext: '.js'
+        },
+        {
+          expand: true,
+          cwd: '<%= yeoman.app %>/scripts',
+          src: '{,*/}*.coffee',
+          dest: 'app/scripts',
+          ext: '.js'
         }]
       },
       test: {
