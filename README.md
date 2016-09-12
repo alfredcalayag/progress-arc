@@ -34,6 +34,8 @@ I started with everything written into one directive to get a quick POC, but now
 - `Conversion`: Some trivial math conversion
 - Then there's the directive itself that composes of the above services and $compiles the widget
 
+These files are located in: [/app/scripts/](https://github.com/alfredcalayag/progress-arc/tree/master/app/scripts)
+
 ## Future Enhancements
 - Allow an option for auto-scaling the widget for responsive-ness to different browser sizes and resizing.
 - Add dynamic updating of the arcs as the bound data changes.
