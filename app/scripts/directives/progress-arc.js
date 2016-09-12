@@ -17,8 +17,6 @@ progressArc = function(Arc, Color, Conversion) {
       expected: '<',
       label: '<'
     },
-    controller: 'ProgressArcCtrl',
-    controllerAs: 'vm',
     link: function(scope, element, attrs) {
       var displayValue, g, svg;
       if (!Conversion.isValidFloat(scope.actual) || !Conversion.isValidFloat(scope.expected)) {

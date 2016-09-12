@@ -13,8 +13,6 @@ progressArc = (Arc, Color, Conversion) ->
         actual: '<'
         expected: '<'
         label: '<'
-    controller: 'ProgressArcCtrl'
-    controllerAs: 'vm'
     link: (scope, element, attrs) ->
         if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
             throw TypeError 'Input should be a number between 0 and 1.0'
