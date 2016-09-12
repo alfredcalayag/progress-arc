@@ -7,7 +7,7 @@
  # # progressArc
 ###
 
-progressArc = (Arc, Color) ->
+progressArc = (Arc, Color, Conversion) ->
     restrict: 'E'
     scope:
         actual: '<'
@@ -16,6 +16,8 @@ progressArc = (Arc, Color) ->
     controller: 'ProgressArcCtrl'
     controllerAs: 'vm'
     link: (scope, element, attrs) ->
+        if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
+            throw TypeError 'Input should be a number between 0 and 1.0'
         # svg = d3.select 'svg'
         svg = d3.select element[0]
             .append 'svg'
@@ -51,7 +53,7 @@ progressArc = (Arc, Color) ->
 
         svg.append 'text'
             .attr 'transform', 'translate(100, 100)'
-            .attr 'class', 'percent'
+            .attr 'class', 'format'
             .attr 'x', 25
             .text (d) -> '%'
 
@@ -69,7 +71,7 @@ progressArc = (Arc, Color) ->
             .duration 2000
             .tween 'text', (d) -> Arc.tween[d.type](this, d)
 
-progressArc.$inject = ['Arc', 'Color']
+progressArc.$inject = ['Arc', 'Color', 'Conversion']
 
 angular.module 'progressArcApp'
   .directive 'progressArc', progressArc

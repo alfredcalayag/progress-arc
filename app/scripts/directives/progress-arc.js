@@ -9,7 +9,7 @@
  */
 var progressArc;
 
-progressArc = function(Arc, Color) {
+progressArc = function(Arc, Color, Conversion) {
   return {
     restrict: 'E',
     scope: {
@@ -21,6 +21,9 @@ progressArc = function(Arc, Color) {
     controllerAs: 'vm',
     link: function(scope, element, attrs) {
       var displayValue, g, svg;
+      if (!Conversion.isValidFloat(scope.actual) || !Conversion.isValidFloat(scope.expected)) {
+        throw TypeError('Input should be a number between 0 and 1.0');
+      }
       svg = d3.select(element[0]).append('svg').attr('class', 'progress-arc').attr('width', 200).attr('height', 200);
       g = svg.append('g').attr('transform', 'translate(100, 100)').selectAll('path').data(Arc.arcData(scope.actual, scope.expected)).enter().append('path').attr('d', function(d) {
         if (d.hasTransition) {
@@ -41,7 +44,7 @@ progressArc = function(Arc, Color) {
       }).text(function(d) {
         return scope.label;
       });
-      svg.append('text').attr('transform', 'translate(100, 100)').attr('class', 'percent').attr('x', 25).text(function(d) {
+      svg.append('text').attr('transform', 'translate(100, 100)').attr('class', 'format').attr('x', 25).text(function(d) {
         return '%';
       });
       g.filter(function(d) {
@@ -62,6 +65,6 @@ progressArc = function(Arc, Color) {
   };
 };
 
-progressArc.$inject = ['Arc', 'Color'];
+progressArc.$inject = ['Arc', 'Color', 'Conversion'];
 
 angular.module('progressArcApp').directive('progressArc', progressArc);
