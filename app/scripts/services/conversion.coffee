@@ -17,7 +17,7 @@ Conversion = () ->
         Math.round (float * 100)
 
     isValidFloat = (input) ->
-        input > 0 and input <= 1
+        input >= 0 and input <= 1
 
     return {
         floatToRadians: floatToRadians

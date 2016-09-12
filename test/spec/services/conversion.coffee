@@ -23,6 +23,7 @@ describe 'Service: Conversion', ->
 
     describe 'isValidFloat', ->
         it 'should return true if number is between 0 and 1', ->
+            expect(Conversion.isValidFloat 0).toBe true
             expect(Conversion.isValidFloat 0.1).toBe true
             expect(Conversion.isValidFloat 0.55555555).toBe true
             expect(Conversion.isValidFloat 1.0).toBe true
