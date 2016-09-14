@@ -16,7 +16,10 @@ The arcs are built with a color mood indicator that behaves as follows:
 <img width="904" alt="markup" src="https://cloud.githubusercontent.com/assets/8264059/18432430/c686edfa-7896-11e6-8ff9-d2c8310c055e.png">
 
 ## Live Demo
-Deployed on Heroku. [Click here for a live demo](https://enigmatic-bayou-18973.herokuapp.com/#/demo).  See the transitions as the page loads. Hit refresh on your browser to play it again.
+Deployed on Heroku.
+[One-time load and display demo](https://enigmatic-bayou-18973.herokuapp.com/#/demo).  See the transitions as the page loads. Hit refresh on your browser to play it again.
+
+[Data-binded demo with live updating](https://enigmatic-bayou-18973.herokuapp.com/#/demo-input).  Input fields provided to change the data values and observe the changing transitions.
 
 ## Try it out
 Follow the build & development section below and visit http://localhost:9000/#/ in your browser.
@@ -38,11 +41,14 @@ These files are located in: [/app/scripts/](https://github.com/alfredcalayag/pro
 
 ## Future Enhancements
 - Allow an option for auto-scaling the widget for responsive-ness to different browser sizes and resizing.
-- Add dynamic updating of the arcs as the bound data changes.
 - Change to a feature-based file structure (e.g. having my directive.js, directive.html, directive.scss all in its own directory).  This is more of a preference rather than a bug.  I learned that I would have to invest more time into a custom scaffolding engine to generate files in my preferred way.  It shouldn't be too difficult, but that's for another project.
 
+## Technologies
+- Angular
+- D3
+
 ## Build & development
-Run `grunt` for building and `grunt serve` for preview.
+To run locally, clone this repo and run: `npm install && bower install && grunt serve`.  A local server will be running on port 9000.
 
 ## Testing
 Running `grunt karma` will run the unit tests with karma.
