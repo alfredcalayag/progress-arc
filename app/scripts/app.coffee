@@ -23,16 +23,20 @@ angular
         templateUrl: 'views/demo.html'
         controller: 'DemoCtrl'
         controllerAs: 'vm'
+      .when '/demo-input',
+        templateUrl: 'views/demo-input.html'
+        controller: 'DemoInputCtrl'
+        controllerAs: 'vm'
       .otherwise
-        redirectTo: '/demo'
-  .factory '$exceptionHandler', ($injector) ->
-    (exception, cause) ->
-      $rootScope = $injector.get '$rootScope'
-      $rootScope.errors = $rootScope.errors || []
-      $rootScope.errors.push exception
+        redirectTo: '/demo-input'
+  # .factory '$exceptionHandler', ($injector) ->
+  #   (exception, cause) ->
+  #     $rootScope = $injector.get '$rootScope'
+  #     $rootScope.errors = $rootScope.errors || []
+  #     $rootScope.errors.push exception
 
-      # Add error logging here
-      console.log exception + '\nCause: ' + cause
+  #     # Add error logging here
+  #     console.log exception + '\nCause: ' + cause
 
       # For now, we can just use an alert to provide feedback to the user
       # alert 'Sorry, an error has occurred: ' + exception.message

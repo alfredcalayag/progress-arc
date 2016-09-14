@@ -11,7 +11,7 @@
     # ...
 
 Arc = (Color, Conversion) ->
-    arcData = (actual, expected, radius = 100) ->
+    arcData = (radius = 100) ->
         return [{
             name: 'base'
             type: 'path'
@@ -30,8 +30,8 @@ Arc = (Color, Conversion) ->
             outerRadius: radius * 0.95
             cornerRadius: 2 * Math.PI
             startAngle: 0
-            endAngle: Conversion.floatToRadians actual
-            displayValue: Conversion.floatToPercent actual
+            endAngle: 0
+            displayValue: 0
             hasTransition: true
             hasColorTransition: true
         },
@@ -43,7 +43,7 @@ Arc = (Color, Conversion) ->
             outerRadius: radius * 0.75
             cornerRadius: 2 * Math.PI
             startAngle: 0
-            endAngle: Conversion.floatToRadians expected
+            endAngle: 0
             hasTransition: true
         }]
 
@@ -67,14 +67,14 @@ Arc = (Color, Conversion) ->
             .endAngle (d) -> d.endAngle
             .cornerRadius (d) -> d.cornerRadius
 
-    arcTween = (d) ->
-        interpolate = d3.interpolate d.startAngle, d.endAngle
+    arcTween = (d, newAngle) ->
+        interpolate = d3.interpolate d.endAngle, newAngle
         (t) ->
             d.endAngle = interpolate t
             endState d
 
-    numberTween = (textElement, d) ->
-        interpolate = d3.interpolate 0, d.value
+    numberTween = (textElement, newNumber) ->
+        interpolate = d3.interpolate Number(textElement.textContent), newNumber
         (t) ->
             textElement.textContent = Math.round(interpolate t)
 
