@@ -27,7 +27,9 @@ Follow the build & development section below and visit http://localhost:9000/#/ 
 Play around with editing the input values in app/views/templates/demo.html and observe the different behavior based on your inputs.
 
 ## Example Usage
-`<progress-arc actual=0.5 expected=0.75 radius=100 label="Progress"></progress-arc>`
+`<progress-arc actual="actual-data" expected="expected-data" radius=100 label="Progress"></progress-arc>`
+
+Where `actual-data` and `expected-data` are expected to be float values in the acceptable range of 0 to 1.0 (1.0 representing 100%).
 
 Required inputs are `actual` and `expected` while `radius` and `label` are optional which are supported with fallback values.
 
