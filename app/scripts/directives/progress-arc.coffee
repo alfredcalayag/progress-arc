@@ -85,10 +85,8 @@ progressArc = (Arc, Color, Conversion) ->
             redraw()
             if !inputIsValid then handleInputError type, input, scope[type]
 
-        scope.$watch 'actual', () ->
-            updateProgress('actual')
-        scope.$watch 'expected', () ->
-            updateProgress('expected')
+        scope.$watch 'actual', () -> updateProgress('actual')
+        scope.$watch 'expected', () -> updateProgress('expected')
 
 progressArc.$inject = ['Arc', 'Color', 'Conversion']
 
