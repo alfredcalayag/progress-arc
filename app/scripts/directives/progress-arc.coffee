@@ -7,7 +7,7 @@
  # # progressArc
 ###
 
-progressArc = (Arc, Color, Conversion) ->
+progressArc = (Arc, Color, Conversion, Errors) ->
     restrict: 'E'
     scope:
         actual: '='
@@ -15,29 +15,17 @@ progressArc = (Arc, Color, Conversion) ->
         label: '<'
         radius: '<'
     link: (scope, element, attrs) ->
-        handleInputError = (type, input, defaultedInput, errorAllowed) ->
-            message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
-                '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
-                'Input has been defaulted to ' + defaultedInput + '. Please try again.'
-            if errorAllowed
-                # Allow widget to initialize
-                console.log message
-            else throw TypeError message
-
-        defaultInput = (input) ->
-            if Number(input) && input > 1 then 1 else 0
-
         validateInput = (type, errorAllowed) ->
             input = scope[type]
             inputIsValid = Conversion.isValidFloat(input)
-            scope[type] = if inputIsValid then scope[type] else defaultInput(scope[type])
+            scope[type] = if inputIsValid then scope[type] else Conversion.defaultInput(scope[type])
             {
                 isValid: inputIsValid
                 type: type
                 input: input
                 defaultedInput: scope[type]
             }
-            if !inputIsValid then handleInputError type, input, scope[type], errorAllowed
+            if !inputIsValid then Errors.inputTypeError type, input, scope[type], errorAllowed
 
         ['actual', 'expected'].forEach (type) -> validateInput(type, true)
 
@@ -99,7 +87,7 @@ progressArc = (Arc, Color, Conversion) ->
         scope.$watch 'actual', () -> updateProgress('actual')
         scope.$watch 'expected', () -> updateProgress('expected')
 
-progressArc.$inject = ['Arc', 'Color', 'Conversion']
+progressArc.$inject = ['Arc', 'Color', 'Conversion', 'Errors']
 
 angular.module 'progressArcApp'
     .directive 'progressArc', progressArc
