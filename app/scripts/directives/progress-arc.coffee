@@ -71,15 +71,6 @@ progressArc = (Arc, Color, Conversion) ->
                 'Input has been defaulted to ' + defaultedInput + '. Please try again.'
             throw TypeError message
 
-        updateArc = (arc, newAngle) ->
-            arc
-                .transition()
-                .delay 100
-                .duration 1000
-                .attrTween 'd', (d) -> Arc.tween[d.type](d, newAngle)
-                .style 'fill', (d) ->
-                    if d.hasColorTransition then Color.getMoodColor(scope.actual, scope.expected) else d.fill
-
         updateText = (textElement, newNumber) ->
             textElement.transition()
                 .delay 100
@@ -88,8 +79,8 @@ progressArc = (Arc, Color, Conversion) ->
 
         redraw = () ->
             g.selectAll('*').interrupt()
-            updateArc(arcActual, Conversion.floatToRadians scope.actual)
-            updateArc(arcExpected, Conversion.floatToRadians scope.expected)
+            Arc.updateArc(arcActual, scope.actual, scope.expected)
+            Arc.updateArc(arcExpected, scope.expected)
             updateText(displayValue, Conversion.floatToPercent scope.actual)
 
         updateProgress = (type) ->

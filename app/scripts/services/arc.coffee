@@ -78,6 +78,14 @@ Arc = (Color, Conversion) ->
         (t) ->
             textElement.textContent = Math.round(interpolate t)
 
+    updateArc = (arc, newArcValue, expectedArcValue) ->
+            arc
+                .transition()
+                .delay 100
+                .duration 1000
+                .attrTween 'd', (d) -> tween[d.type](d, Conversion.floatToRadians newArcValue)
+                .style 'fill', (d) ->
+                    if d.hasColorTransition then Color.getMoodColor(newArcValue, expectedArcValue) else d.fill
     tween = {
         path: arcTween
         number: numberTween
@@ -89,6 +97,7 @@ Arc = (Color, Conversion) ->
         initialState: initialState
         endState: endState
         tween: tween
+        updateArc: updateArc
     }
 
 Arc.$inject = ['Color', 'Conversion']
