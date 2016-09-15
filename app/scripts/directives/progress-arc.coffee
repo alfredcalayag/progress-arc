@@ -15,8 +15,31 @@ progressArc = (Arc, Color, Conversion) ->
         label: '<'
         radius: '<'
     link: (scope, element, attrs) ->
-        if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
-            throw TypeError 'Input should be a number between 0 and 1.0'
+        handleInputError = (type, input, defaultedInput, errorAllowed) ->
+            message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
+                '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
+                'Input has been defaulted to ' + defaultedInput + '. Please try again.'
+            if errorAllowed
+                # Allow widget to initialize
+                console.log message
+            else throw TypeError message
+
+        defaultInput = (input) ->
+            if Number(input) && input > 1 then 1 else 0
+
+        validateInput = (type, errorAllowed) ->
+            input = scope[type]
+            inputIsValid = Conversion.isValidFloat(input)
+            scope[type] = if inputIsValid then scope[type] else defaultInput(scope[type])
+            {
+                isValid: inputIsValid
+                type: type
+                input: input
+                defaultedInput: scope[type]
+            }
+            if !inputIsValid then handleInputError type, input, scope[type], errorAllowed
+
+        ['actual', 'expected'].forEach (type) -> validateInput(type, true)
 
         svg = d3.select element[0]
             .append 'svg'
@@ -63,15 +86,6 @@ progressArc = (Arc, Color, Conversion) ->
             .attr 'x', 33
             .text (d) -> '%'
 
-        defaultInput = (input) ->
-            if Number(input) && input > 1 then 1 else 0
-
-        handleInputError = (type, input, defaultedInput) ->
-            message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
-                '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
-                'Input has been defaulted to ' + defaultedInput + '. Please try again.'
-            throw TypeError message
-
         redraw = () ->
             g.selectAll('*').interrupt()
             Arc.updateArc(arcActual, scope.actual, scope.expected)
@@ -79,11 +93,8 @@ progressArc = (Arc, Color, Conversion) ->
             Arc.updateText(displayValue, Conversion.floatToPercent scope.actual)
 
         updateProgress = (type) ->
-            input = scope[type]
-            inputIsValid = Conversion.isValidFloat(input)
-            scope[type] = if inputIsValid then scope[type] else defaultInput(scope[type])
+            validateInput type
             redraw()
-            if !inputIsValid then handleInputError type, input, scope[type]
 
         scope.$watch 'actual', () -> updateProgress('actual')
         scope.$watch 'expected', () -> updateProgress('expected')
