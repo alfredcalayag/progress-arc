@@ -27,8 +27,12 @@ angular
         templateUrl: 'views/demo-input.html'
         controller: 'DemoInputCtrl'
         controllerAs: 'vm'
+      .when '/demo-errors',
+        templateUrl: 'views/demo-errors.html'
+        controller: 'DemoErrorsCtrl'
+        controllerAs: 'vm'
       .otherwise
-        redirectTo: '/demo-input'
+        redirectTo: '/demo-errors'
   # .factory '$exceptionHandler', ($injector) ->
   #   (exception, cause) ->
   #     $rootScope = $injector.get '$rootScope'

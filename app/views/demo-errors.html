@@ -1,0 +1,92 @@
+<div style="display:block"><h1>DEMO Errors</h1></div>
+<p>Oh no! 'foo', 'bar', 'baz' were not valid data. We've broken the widgets... but wait... there's still a chance.  They will still work if you revive them with valid inputs.</p>
+
+<p>Valid numbers are floats from 0 to 1.0. Attempting a number greater will force to 1.  Anything less than 0 or other will resort to 0.</p>
+
+<p></p>
+
+<p>Tips: Open the dev console and witness the helpful error messages that will save you hours in debugging.</p>
+<p>Note: The inputs are controlled by the progress-arc widget itself.  No special handling has been applied to the input fields on the parent controller.</p>
+
+<br><br><br><br>
+
+<div style="text-align:center">
+    <progress-arc actual="vm.data1.actual" expected="vm.data1.expected" radius="vm.data1.radius"></progress-arc>
+    <div>1) <u>input type="number"</u> with strings in initial vm.data (i.e. "foo", "bar")</div>
+    <div style="display:block">
+        <div style="display:inline-block;">
+            Actual: <input type="number" ng-model="vm.data1.actual"></input>
+        </div>
+        <div style="display:inline-block;">
+            Expected: <input type="number" ng-model="vm.data1.expected"></input>
+        </div>
+    </div>
+    Reference Data:
+    {
+        actual: 'foo',
+        expected: 'bar'
+    }
+</div>
+
+<br><br>
+<hr>
+
+<div style="text-align:center">
+    <progress-arc actual="vm.data2.actual" expected="vm.data2.expected" radius="vm.data2.radius"></progress-arc>
+    <div>2) <u>input type="number"</u> with out of bounds numbers in initial vm.data (i.e. -3, 100)</div>
+    <div style="display:block">
+        <div style="display:inline-block;">
+            Actual: <input type="number" ng-model="vm.data2.actual"></input>
+        </div>
+        <div style="display:inline-block;">
+            Expected: <input type="number" ng-model="vm.data2.expected"></input>
+        </div>
+    </div>
+    Reference Data:
+    {
+        actual: -3,
+        expected: 100
+    }
+</div>
+
+<br><br>
+<hr>
+
+<div style="text-align:center">
+    <progress-arc actual="vm.data3.actual" expected="vm.data3.expected" radius="vm.data3.radius"></progress-arc>
+    <div>3) <u>input type="text"</u> with number strings (i.e. "0.2" and "0.5" opposed to 0.2 and 0.5 respectively)</div>
+    <div style="display:block">
+        <div style="display:inline-block;">
+            Actual: <input type="text" ng-model="vm.data3.actual"></input>
+        </div>
+        <div style="display:inline-block;">
+            Expected: <input type="text" ng-model="vm.data3.expected"></input>
+        </div>
+    </div>
+    Reference Data:
+    {
+        actual: '0.2',
+        expected: '0.5'
+    }
+</div>
+
+<br><br>
+<hr>
+
+<div style="text-align:center">
+    <progress-arc actual="vm.data4.actual" expected="vm.data4.expected" radius="vm.data4.radius"></progress-arc>
+    <div>4) <u>input type="text"</u> with string characters (i.e. "foo", "bar")</div>
+    <div style="display:block">
+        <div style="display:inline-block;">
+            Actual: <input type="text" ng-model="vm.data4.actual"></input>
+        </div>
+        <div style="display:inline-block;">
+            Expected: <input type="text" ng-model="vm.data4.expected"></input>
+        </div>
+    </div>
+    Reference Data:
+    {
+        actual: 'foo',
+        expected: 'bar'
+    }
+</div>
