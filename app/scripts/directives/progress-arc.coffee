@@ -87,6 +87,7 @@ progressArc = (Arc, Color, Conversion) ->
                 .tween 'text', (d) -> Arc.tween[d.type](this, newNumber)
 
         redraw = () ->
+            g.selectAll('*').interrupt()
             updateArc(arcActual, Conversion.floatToRadians scope.actual)
             updateArc(arcExpected, Conversion.floatToRadians scope.expected)
             updateText(displayValue, Conversion.floatToPercent scope.actual)
