@@ -7,16 +7,21 @@
  # # progressArc
 ###
 
-progressArc = (Arc, Color, Conversion) ->
+progressArc = (Arc, Color, Conversion, Errors) ->
     restrict: 'E'
     scope:
-        actual: '<'
-        expected: '<'
+        actual: '='
+        expected: '='
         label: '<'
         radius: '<'
     link: (scope, element, attrs) ->
-        if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
-            throw TypeError 'Input should be a number between 0 and 1.0'
+        validateInput = (type, errorAllowed) ->
+            input = scope[type]
+            inputIsValid = Conversion.isValidFloat(input)
+            scope[type] = if inputIsValid then scope[type] else Conversion.defaultInput(scope[type])
+            if !inputIsValid then Errors.inputTypeError type, input, scope[type], errorAllowed
+
+        ['actual', 'expected'].forEach (type) -> validateInput(type, true)
 
         svg = d3.select element[0]
             .append 'svg'
@@ -32,6 +37,7 @@ progressArc = (Arc, Color, Conversion) ->
         # create arc references and apply data to the grouping
         arcBase = g.append 'path'
             .datum arcData[0]
+            .attr 'd', (d) -> Arc.endState d
         arcActual = g.append 'path'
             .datum arcData[1]
         arcExpected = g.append 'path'
@@ -62,34 +68,20 @@ progressArc = (Arc, Color, Conversion) ->
             .attr 'x', 33
             .text (d) -> '%'
 
-        scope.$watchGroup ['actual', 'expected'], (newValues, oldValues) ->
-            # add input validation
-            if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
-                throw TypeError 'Input should be a number between 0 and 1.0'
-            # Stop any active transitions
+        redraw = () ->
             g.selectAll('*').interrupt()
-            # Update the arcs and text
-            updateArc(arcActual, Conversion.floatToRadians(newValues[0]))
-            updateArc(arcExpected, Conversion.floatToRadians(newValues[1]))
-            updateText(displayValue, Conversion.floatToPercent newValues[0])
+            Arc.updateArc(arcActual, scope.actual, scope.expected)
+            Arc.updateArc(arcExpected, scope.expected)
+            Arc.updateText(displayValue, Conversion.floatToPercent scope.actual)
 
-        updateArc = (arc, newAngle) ->
-            arc
-                .transition()
-                .delay 100
-                .duration 1000
-                .attrTween 'd', (d) -> Arc.tween[d.type](d, newAngle)
-                .style 'fill', (d) ->
-                    if d.hasColorTransition then Color.getMoodColor(scope.actual, scope.expected) else d.fill
+        updateProgress = (type) ->
+            validateInput type
+            redraw()
 
-        updateText = (textElement, newNumber) ->
-            textElement.transition()
-                .delay 100
-                .duration 1000
-                .tween 'text', (d) -> Arc.tween[d.type](this, newNumber)
+        scope.$watch 'actual', () -> updateProgress('actual')
+        scope.$watch 'expected', () -> updateProgress('expected')
 
-
-progressArc.$inject = ['Arc', 'Color', 'Conversion']
+progressArc.$inject = ['Arc', 'Color', 'Conversion', 'Errors']
 
 angular.module 'progressArcApp'
     .directive 'progressArc', progressArc
