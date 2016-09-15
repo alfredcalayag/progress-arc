@@ -19,12 +19,6 @@ progressArc = (Arc, Color, Conversion, Errors) ->
             input = scope[type]
             inputIsValid = Conversion.isValidFloat(input)
             scope[type] = if inputIsValid then scope[type] else Conversion.defaultInput(scope[type])
-            {
-                isValid: inputIsValid
-                type: type
-                input: input
-                defaultedInput: scope[type]
-            }
             if !inputIsValid then Errors.inputTypeError type, input, scope[type], errorAllowed
 
         ['actual', 'expected'].forEach (type) -> validateInput(type, true)
