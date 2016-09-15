@@ -72,17 +72,11 @@ progressArc = (Arc, Color, Conversion) ->
                 'Input has been defaulted to ' + defaultedInput + '. Please try again.'
             throw TypeError message
 
-        updateText = (textElement, newNumber) ->
-            textElement.transition()
-                .delay 100
-                .duration 1000
-                .tween 'text', (d) -> Arc.tween[d.type](this, newNumber)
-
         redraw = () ->
             g.selectAll('*').interrupt()
             Arc.updateArc(arcActual, scope.actual, scope.expected)
             Arc.updateArc(arcExpected, scope.expected)
-            updateText(displayValue, Conversion.floatToPercent scope.actual)
+            Arc.updateText(displayValue, Conversion.floatToPercent scope.actual)
 
         updateProgress = (type) ->
             input = scope[type]
