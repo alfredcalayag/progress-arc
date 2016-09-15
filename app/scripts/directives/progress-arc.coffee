@@ -65,8 +65,11 @@ progressArc = (Arc, Color, Conversion) ->
         defaultInput = (input) ->
             if Number(input) && input > 1 then 1 else 0
 
-        hasInputError = (input) ->
-            return !Conversion.isValidFloat(input)
+        handleInputError = (type, input, defaultedInput) ->
+            message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
+                '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
+                'Input has been defaulted to ' + defaultedInput + '. Please try again.'
+            throw TypeError message
 
         updateArc = (arc, newAngle) ->
             arc
@@ -93,11 +96,7 @@ progressArc = (Arc, Color, Conversion) ->
             inputIsValid = Conversion.isValidFloat(input)
             scope[type] = if inputIsValid then scope[type] else defaultInput(scope[type])
             redraw()
-            if !inputIsValid
-                message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
-                    '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
-                    'Input has been defaulted to ' + scope[type] + '. Please try again.'
-                throw TypeError message
+            if !inputIsValid then handleInputError type, input, scope[type]
 
         scope.$watch 'actual', () ->
             updateProgress('actual')
