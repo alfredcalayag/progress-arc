@@ -10,8 +10,8 @@
 progressArc = (Arc, Color, Conversion) ->
     restrict: 'E'
     scope:
-        actual: '<'
-        expected: '<'
+        actual: '='
+        expected: '='
         label: '<'
         radius: '<'
     link: (scope, element, attrs) ->
@@ -62,16 +62,11 @@ progressArc = (Arc, Color, Conversion) ->
             .attr 'x', 33
             .text (d) -> '%'
 
-        scope.$watchGroup ['actual', 'expected'], (newValues, oldValues) ->
-            # add input validation
-            if !Conversion.isValidFloat(scope.actual) or !Conversion.isValidFloat(scope.expected)
-                throw TypeError 'Input should be a number between 0 and 1.0'
-            # Stop any active transitions
-            g.selectAll('*').interrupt()
-            # Update the arcs and text
-            updateArc(arcActual, Conversion.floatToRadians(newValues[0]))
-            updateArc(arcExpected, Conversion.floatToRadians(newValues[1]))
-            updateText(displayValue, Conversion.floatToPercent newValues[0])
+        defaultInput = (input) ->
+            if Number(input) && input > 1 then 1 else 0
+
+        hasInputError = (input) ->
+            return !Conversion.isValidFloat(input)
 
         updateArc = (arc, newAngle) ->
             arc
@@ -88,6 +83,26 @@ progressArc = (Arc, Color, Conversion) ->
                 .duration 1000
                 .tween 'text', (d) -> Arc.tween[d.type](this, newNumber)
 
+        redraw = () ->
+            updateArc(arcActual, Conversion.floatToRadians scope.actual)
+            updateArc(arcExpected, Conversion.floatToRadians scope.expected)
+            updateText(displayValue, Conversion.floatToPercent scope.actual)
+
+        updateProgress = (type) ->
+            input = scope[type]
+            inputIsValid = Conversion.isValidFloat(input)
+            scope[type] = if inputIsValid then scope[type] else defaultInput(scope[type])
+            redraw()
+            if !inputIsValid
+                message = 'Saw "' + type + '"' + ' input value: "' + input + '". ' +
+                    '"' + type + '"' + ' input should be a number between 0 and 1.0. ' +
+                    'Input has been defaulted to ' + scope[type] + '. Please try again.'
+                throw TypeError message
+
+        scope.$watch 'actual', () ->
+            updateProgress('actual')
+        scope.$watch 'expected', () ->
+            updateProgress('expected')
 
 progressArc.$inject = ['Arc', 'Color', 'Conversion']
 
