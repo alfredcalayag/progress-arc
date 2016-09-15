@@ -19,10 +19,14 @@ Conversion = () ->
     isValidFloat = (input) ->
         input >= 0 and input <= 1
 
+    defaultInput = (input) ->
+        if Number(input) && input > 1 then 1 else 0
+
     return {
         floatToRadians: floatToRadians
         floatToPercent: floatToPercent
         isValidFloat: isValidFloat
+        defaultInput: defaultInput
     }
 
 angular.module 'progressArcApp'
