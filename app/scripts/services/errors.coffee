@@ -17,7 +17,7 @@ Errors = () ->
         if errorAllowed
             # Allow widget to initialize
             console.log message
-        else throw TypeError message
+        else throw Error message
 
     return {
         inputTypeError: inputTypeError
