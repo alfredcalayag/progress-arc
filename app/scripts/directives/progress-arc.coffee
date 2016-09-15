@@ -32,6 +32,7 @@ progressArc = (Arc, Color, Conversion) ->
         # create arc references and apply data to the grouping
         arcBase = g.append 'path'
             .datum arcData[0]
+            .attr 'd', (d) -> Arc.endState d
         arcActual = g.append 'path'
             .datum arcData[1]
         arcExpected = g.append 'path'
