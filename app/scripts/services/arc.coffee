@@ -86,7 +86,7 @@ Arc = (Color, Conversion) ->
         textElement.transition()
             .delay 100
             .duration 1000
-            .tween 'text', (d) -> tween[d.type](this, newNumber)
+            .tween 'text', (d) -> tween[d.type](this, Conversion.floatToPercent newNumber)
 
     tween = {
         path: arcTween

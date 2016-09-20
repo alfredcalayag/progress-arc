@@ -72,7 +72,7 @@ progressArc = (Arc, Color, Conversion, Errors) ->
             g.selectAll('*').interrupt()
             Arc.updateArc(arcActual, scope.actual, scope.expected)
             Arc.updateArc(arcExpected, scope.expected)
-            Arc.updateText(displayValue, Conversion.floatToPercent scope.actual)
+            Arc.updateText(displayValue, scope.actual)
 
         updateProgress = (type) ->
             validateInput type
