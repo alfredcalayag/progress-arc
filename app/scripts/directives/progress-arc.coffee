@@ -36,12 +36,12 @@ progressArc = (Arc, Color, Conversion, Errors) ->
         arcData = Arc.arcData scope.radius
         # create arc references and apply data to the grouping
         arcBase = g.append 'path'
-            .datum arcData[0]
-            .attr 'd', (d) -> Arc.endState d
+            .datum arcData.base
+            .attr 'd', (d) -> Arc.d3Arc d
         arcActual = g.append 'path'
-            .datum arcData[1]
+            .datum arcData.actual
         arcExpected = g.append 'path'
-            .datum arcData[2]
+            .datum arcData.expected
 
         # decorate arcs
         g.selectAll('path')
